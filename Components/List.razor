@@ -1,0 +1,113 @@
+@using ej9.Data
+
+<div class="container">
+@using (var registro = new IglesiaDbContext())
+{
+    
+        <div class="row bg-light">
+            <table class="table table-bordered " >
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Sexo</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Fecga de nacimiento</th>
+                        <th>Pais de nacimiento</th>
+                        <th>Ciudad de nacimiento</th>
+                        <th>Pais De ressidencia Actual</th>
+                        <th>Ciudad De ressidencia Actual</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Celular</th>
+                        <th>Correo</th>
+                        <th>Tipo de Documento de identidad </th>
+                         <th>Documento de identidad</th>
+                         <th>Borrar Registro</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                 @if(registro.Iglesias.Any()){
+
+                     @foreach (var item in registro.Iglesias)
+                     { <tr>
+                         <td>
+                             @item.IglesiaId
+                         </td>
+                         <td>
+                             @item.Sexo
+                         </td>
+                         <td>
+                             @item.Nombres
+                         </td>
+                         <td>
+                             @item.Apellidos
+                         </td>
+                         <td>
+                             @item.FechaNacimiento
+                         </td>
+                         <td>
+                             @item.Paísnacimiento
+                         </td>
+                         <td>
+                             @item.Ciudadnacimiento
+                         </td>
+                         <td>
+                             @item.Paísactual
+                         </td>
+                          <td>
+                             @item.Ciudadactual
+                         </td>
+                          <td>
+                             @item.Dirección
+                         </td>
+                          <td>
+                             @item.Teléfono
+                         </td>
+                          <td>
+                             @item.Celular
+                         </td>
+                          <td>
+                             @item.Correoelectrónico
+                         </td>
+                          <td>
+                             @item.Tipoidenti
+                         </td>
+                          <td>
+                             @item.Documentoidentidad
+                         </td>
+                       <td><button class="btn btn-danger" @onclick="(() => DeleteProduct(item))"><span class="oi oi-trash"></span>Delete</button></td>
+                       </tr>
+                     }
+                 }
+
+                </tbody>
+            </table>
+        </div>        
+}
+
+</div>
+@code{
+ IglesiaDbContext db = new IglesiaDbContext();
+
+
+   public async Task DeleteProductAsync(Iglesia iglesia)
+        {
+            try
+            {
+                db.Iglesias.Remove(iglesia);
+                await db.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private async Task DeleteProduct(Iglesia iglesia)
+    {
+        await DeleteProductAsync(iglesia);
+      
+    }
+    
+}

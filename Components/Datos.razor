@@ -1,0 +1,130 @@
+@using ej9.Data
+@using ej9.Components
+
+
+ <div class="form-group">
+            <label for="IglesiaId">Id</label>
+            <input type="text"@bind="IglesiaId" id="IglesiaId" class="form-control" placeholder="Inserte Id" />
+        </div>
+        
+                     <div class="form-group">
+            <label for="vehiculo">Sexo</label>
+            <select class="form-control" @bind="Sexo">
+                <option value="Mujer" > Mujer </option>
+                 <option value="Hombre" > Hombre</option>
+                
+            </select>    
+            </div>
+         
+         <div class="form-group">
+            <label for="Nombres">Nombres</label>
+            <input type="text"@bind="Nombres" id="Nombres" class="form-control" placeholder="Inserte Nombre" />
+        </div>
+         <div class="form-group">
+            <label for="Apellidos">Apellidos</label>
+            <input type="text"@bind="Apellidos" id="Apellidos" class="form-control" placeholder="Inserte Apellidos" />
+        </div>
+           <div class="form-group" >
+               <div class="form-group">
+            <label for="Date">  Fecha de Nacimiento</label>
+            <input required type="date"@bind="fecha" id="fecha" class="form-control" placeholder="Inserte Fecha de Nacimiento" />
+        </div>
+            <label for="vehiculo">Pais De nacimiento</label>
+            <select class="form-control" @bind="Paísnacimiento">
+                @foreach (var item in p.pais1)
+                {
+                    <option value="@item"> @item</option>
+                }
+
+
+            </select>
+
+        </div>
+         <div class="form-group">
+            <label for="cedula">Ciudad de nacimiento</label>
+            <input type="text"@bind="Ciudadnacimiento" id="Ciudadnacimiento" class="form-control" placeholder="Inserte Ciudad de nacimiento" />
+        </div>
+           <div class="form-group">
+            <label for="vehiculo">Pais De recidencia actual</label>
+            <select class="form-control" @bind="Paísactual">
+                @foreach (var t in p.pais1)
+                {
+                    <option value="@t"> @t</option>
+                }
+
+
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="Ciudadactual">Ciudad de residencia actual</label>
+            <input type="text"@bind="Ciudadactual" id="Ciudadactual" class="form-control" placeholder="Inserte Ciudad de residencia actual" />
+        </div>
+         <div class="form-group">
+            <label for="Dirección">Dirección</label>
+            <input type="text"@bind="Dirección" id="Dirección" class="form-control" placeholder="Inserte Dirección" />
+        </div>
+         <div class="form-group">
+            <label for="Teléfono">Teléfono</label>
+            <input type="Int"@bind="Teléfono" id="Teléfono" class="form-control" placeholder="Inserte Teléfono" />
+        </div>
+         <div class="form-group">
+            <label for="Celular">Celular</label>
+            <input type="Int"@bind="Celular" id="Celular" class="form-control" placeholder="Inserte Celular" />
+        </div>
+         <div class="form-group">
+            <label for="Correoelectrónico">Correo electrónico</label>
+            <input type="text"@bind="Correoelectrónico" id="Correoelectrónico" class="form-control" placeholder="Inserte Corre oelectrónico" />
+        </div>
+          <div class="form-group">
+            <label for="vehiculo">Tipo de Documento de identidad</label>
+            <select class="form-control" @bind="@Tipoidenti">
+                <option value="Cedula " > Cedula </option>
+                 <option value="Pasaporte" > Pasaporte</option>
+                 <option value="DNI" > DNI</option>
+            </select>    
+            </div>
+        
+        <label for="descricion">Documento De identidad</label>
+        <textarea @bind="Documentoidentidad" required name="Documentoidentidad" id="Documentoidentidad" cols="30" rows="4" class="form-control"></textarea>
+        <br>
+       <div class="text-center p-3 mb-3">
+            <button class="btn btn-info" @onclick="getapi"><span class="oi oi-medical-cross"></span> Guardar Registro</button>
+        </div>
+     
+   
+ 
+
+
+
+@code{
+   paises p = new paises();
+  
+  DateTime fecha;
+IglesiaDbContext db = new IglesiaDbContext();
+Iglesia i= new Iglesia();
+public string Sexo,Apellidos ,Nombres,Paísnacimiento,Ciudadnacimiento,Paísactual,Ciudadactual
+,Dirección ,Correoelectrónico,Tipoidenti ,Documentoidentidad ;
+public int IglesiaId,Teléfono, Celular;
+
+public void getapi(){
+i.IglesiaId = IglesiaId;
+i.Sexo=Sexo;
+i.Nombres = Nombres;
+i.Apellidos=Apellidos;
+i.FechaNacimiento=fecha;
+i.Paísnacimiento=Paísnacimiento;
+i.Ciudadnacimiento=Ciudadnacimiento;
+i.Paísactual=Paísactual;
+i.Ciudadactual=Ciudadactual;
+i.Dirección=Dirección;
+i.Teléfono=Teléfono;
+i.Celular=Celular;
+i.Correoelectrónico=Correoelectrónico;
+i.Tipoidenti=Tipoidenti;
+i.Documentoidentidad=Documentoidentidad;
+db.Add(i);
+db.SaveChanges();
+Console.WriteLine("Guardando");
+}
+}
